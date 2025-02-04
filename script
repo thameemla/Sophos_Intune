@@ -1,0 +1,27 @@
+#!/bin/bash
+# change the path where you want to create temporary folder
+cd ~/Desktop || exit 1
+
+# Create a temporary directory
+mkdir -p sop
+cd sop || exit 1
+
+# Download SophosInstaller.zip from the provided URL
+curl -L -O "url" || exit 1
+
+# Unzip the downloaded file
+unzip SophosInstall.zip || exit 1
+
+# Give execute permissions to the installer and helper tool
+chmod a+x "Sophos Installer.app/Contents/MacOS/Sophos Installer"
+chmod a+x "Sophos Installer.app/Contents/MacOS/tools/com.sophos.bootstrap.helper"
+
+# Run the installer with the --quiet option using osascript
+osascript -e 'do shell script "./Sophos\\ Installer.app/Contents/MacOS/Sophos\\ Installer --quiet" with administrator privileges' || exit 1
+
+# Remove the temporary directory
+cd ..
+rm -rf sop
+
+# Exit the script with success status
+exit 0
